@@ -9,6 +9,13 @@ Twig_Autoloader::register();
 //echo $twig->render('Hello {{ name }}!', array('name' => 'Fabien'));
 
 try {
+    $dbh = new PDO('mysql:dbname=trialdb2;host=localhost', 'michese', '1234');
+
+} catch(Exception $e) {
+    die("db error" . $e->getMessage());
+}
+
+try {
 
     $loader = new Twig_Loader_Filesystem('templates');
     $twig = new Twig_Environment($loader);

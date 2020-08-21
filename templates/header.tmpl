@@ -1,8 +1,13 @@
 <header>
     <nav>
         <ul class="menu">
-            <a href="/" class="menu__link">Главная</a>
-            <a href="/gallery/" class="menu__link">Галерея</a>
+
+            {% for menu_item in menu %}
+
+            <a href="{{ menu_item.src }}" class="menu__link">{{ menu_item.title }}</a>
+
+            {% endfor %}
+
         </ul>
     </nav>
 </header>

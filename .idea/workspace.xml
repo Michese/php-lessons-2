@@ -14,13 +14,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
-    <include_path>
-      <path value="$PROJECT_DIR$/vendor/twig/twig" />
-      <path value="$PROJECT_DIR$/vendor/composer" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
-    </include_path>
-  </component>
   <component name="ProjectId" id="1gMqQpETXHIdEtqpCDCWwMAMlEh" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -41,7 +34,7 @@
       <updated>1597934797622</updated>
       <workItem from="1597934799443" duration="7325000" />
       <workItem from="1597947639998" duration="4126000" />
-      <workItem from="1598002122717" duration="5503000" />
+      <workItem from="1598002122717" duration="8683000" />
     </task>
     <servers />
   </component>
