@@ -1,152 +1,37 @@
 <?php
 
-interface sum
-{
-    public function sum();
-}
+require_once 'Twig/Autoloader.php';
+require_once 'classes/application.php';
+require_once 'classes/view.php';
+require_once 'classes/db.php';
 
-abstract class Product implements sum
-{
-    protected $price;
-    protected $title;
-    protected $id;
-    protected $discount;
-    protected $brand;
+Twig_Autoloader::register();
+//echo $twig->render('Hello {{ name }}!', array('name' => 'Fabien'));
 
-    public function __construct($id, $title, $price, $brand)
-    {
-        $this->id = $id;
-        $this->title = $title;
-        $this->price = $price;
-        $this->brand = $brand;
+try {
+
+    $loader = new Twig_Loader_Filesystem('templates');
+    $twig = new Twig_Environment($loader);
+    $view = new \Classes\View($twig);
+    $db = new \Classes\DB('localhost', 'michese', '1234', 'trialdb2');
+    $app = new \Classes\Application($view, $db);
+
+    $url_array = explode('/', $_SERVER['REQUEST_URI']);
+    $page = "index";
+
+    if (isset($url_array[1]) && $url_array[1] !== "") {
+        $page = $url_array[1];
     }
 
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    public function getDiscount()
-    {
-        return $this->discount;
-    }
-
-    public function addDiscount($title_discount, $value_discount)
-    {
-        if (true || false) {
-            // ...
-        }
-        $this->discount[$title_discount] = $value_discount;
-    }
-
-}
-
-class DigitalProduct extends Product
-{
-    private $count;
-
-    public function __construct($id, $title, $price, $brand, $count)
-    {
-        parent::__construct($id, $title, $price, $brand);
-        $this->count = $count;
-    }
-
-    public function sum()
-    {
-        $result = $this->price * $this->count;
-
-        if ($this->discount !== null) {
-            foreach ($this->discount as $value) {
-                $result = $result * (1 - $value / 100.0);
-            }
+    for ($count = 2; $count < count($url_array); $count++) {
+        if ($url_array[$count] !== '' && !preg_match("/^(\?)(.*)$/", $url_array[$count])) {
+            $page .= ucfirst($url_array[$count]);
         }
 
-        return $result;
-    }
-}
-
-class RetailProduct extends Product
-{
-    protected $count;
-
-    public function __construct($id, $title, $price, $brand, $count)
-    {
-        parent::__construct($id, $title, $price, $brand);
-        $this->count = $count;
     }
 
-    public function sum()
-    {
-        $result = $this->price * $this->count;
+    $app->$page();
 
-        if ($this->discount !== null) {
-            foreach ($this->discount as $value) {
-                $result = $result * (1 - $value / 100.0);
-            }
-        }
-
-        return $result;
-    }
-}
-
-class WeightProduct extends Product
-{
-    protected $weight;
-
-    public function __construct($id, $title, $price, $brand, $weight)
-    {
-        parent::__construct($id, $title, $price, $brand);
-        $this->weight = $weight;
-    }
-
-    public function sum()
-    {
-        $result = $this->price * $this->weight;
-
-        if ($this->discount !== null) {
-            foreach ($this->discount as $value) {
-                $result = $result * (1 - $value / 100.0);
-            }
-        }
-
-        return $result;
-    }
-}
-
-// singleton
-
-trait ezcSingleton
-{
-    private function __construct()
-    {
-    }
-
-    private function __clone()
-    {
-    }
-
-    private function __wakeup()
-    {
-    }
-
-    public static function getInstance()
-    {
-        if (self::$_instance === null) {
-            self::$_instance = new self;
-        }
-
-        return self::$_instance;
-    }
-}
-
-class Singleton
-{
-    protected static $_instance;
-
-    use ezcSingleton;
+} catch (Exception $e) {
+    die("Error" . $e->getMessage());
 }

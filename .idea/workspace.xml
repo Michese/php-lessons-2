@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94debc51-1f35-4154-88a0-9c418f4c0d1e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-    </list>
+    <list default="true" id="98fcc124-cbf9-4197-ac96-d74e3cb8e23b" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" doNotAsk="true">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1g4zjoaNwmhMFuRKmjJsqIxEwvV" />
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="1gMqQpETXHIdEtqpCDCWwMAMlEh" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -28,18 +34,32 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="94debc51-1f35-4154-88a0-9c418f4c0d1e" name="Default Changelist" comment="" />
-      <created>1597388791261</created>
+      <changelist id="98fcc124-cbf9-4197-ac96-d74e3cb8e23b" name="Default Changelist" comment="" />
+      <created>1597934797622</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1597388791261</updated>
-      <workItem from="1597388792964" duration="2996000" />
-      <workItem from="1597662497855" duration="1377000" />
-      <workItem from="1597742041616" duration="1319000" />
+      <updated>1597934797622</updated>
+      <workItem from="1597934799443" duration="7325000" />
+      <workItem from="1597947639998" duration="4126000" />
+      <workItem from="1598002122717" duration="5503000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="715" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1597936498916">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="715" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1597936498916" />
+    <state x="629" y="298" key="EditFileWatcherDialog" timestamp="1598005016887">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="629" y="298" key="EditFileWatcherDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1598005016887" />
+    <state x="321" y="443" key="NewPhpFileDialog" timestamp="1597944740709">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="321" y="443" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597944740709" />
   </component>
 </project>
