@@ -1,0 +1,11 @@
+<div class="products">
+    {% for product in goods %}
+    <div class="product__item" data-id="{{ product.id_goods }}">
+        <div class="product_image_div">
+            <img src="{{ product.src_small_goods }}" class="product_image">
+        </div>
+        <p class="product_content">Название: {{ product.title_goods }}</p>
+        <p class="product_content">Цена: {{ product.price_goods }}</p>
+    </div>
+    {% endfor %}
+</div>

@@ -1,4 +1,5 @@
 <?php
+//declare(strict_types=1);
 
 namespace Classes;
 
@@ -7,7 +8,7 @@ class DB
     private $db;
     private $hasConnection;
 
-    public function __construct($host, $user, $password, $nameDB)
+    public function __construct(string $host, string $user, string $password, string $nameDB)
     {
         $this->db = mysqli_connect($host, $user, $password, $nameDB);
 
