@@ -12,16 +12,17 @@ try {
     $dbh = new PDO('mysql:dbname=trialdb2;host=localhost', 'michese', '1234');
 
 } catch(Exception $e) {
-    die("db error" . $e->getMessage());
+    die("db error " . $e->getMessage());
 }
+
+$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 try {
 
     $loader = new Twig_Loader_Filesystem('templates');
     $twig = new Twig_Environment($loader);
     $view = new \Classes\View($twig);
-    $db = new \Classes\DB('localhost', 'michese', '1234', 'trialdb2');
-    $app = new \Classes\Application($view, $db);
+    $app = new \Classes\Application($view, $dbh);
 
     $url_array = explode('/', $_SERVER['REQUEST_URI']);
     $page = "index";
@@ -40,5 +41,5 @@ try {
     $app->$page();
 
 } catch (Exception $e) {
-    die("Error" . $e->getMessage());
+    die("Error " . $e->getMessage());
 }
