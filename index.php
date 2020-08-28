@@ -6,6 +6,7 @@ require_once 'classes/view.php';
 require_once 'classes/db.php';
 
 Twig_Autoloader::register();
+session_start();
 //echo $twig->render('Hello {{ name }}!', array('name' => 'Fabien'));
 
 try {

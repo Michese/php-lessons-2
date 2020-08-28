@@ -25,19 +25,60 @@ class Application
         ]
     ];
     static $params = [
-        'title' => 'Lesson 4',
-        'year' => 2020
+        'title' => 'Lesson 4'
     ];
 
     public function __construct(\Classes\view $view, $db = null)
     {
         $this->view = $view;
         $this->db = $db;
+        self::$params['year'] = date('Y');
+        if (isset($_SESSION['user'])) {
+            self::$menu['menu'][] = [
+                'src' => '/account/',
+                'title' => 'Личный кабинет'
+            ];
+            self::$menu['menu'][] = [
+                'src' => '/logout/',
+                'title' => 'Выйти'
+            ];
+        } else {
+            self::$menu['menu'][] = [
+                'src' => '/register/',
+                'title' => 'Войти'
+            ];
+        }
+    }
+
+    private function _rememberSite($url)
+    {
+        $result = false;
+
+        $sql = "select first_site_history, second_site_history, third_site_history, fourth_site_history,
+ fifth_site_history from user where id_user = " . $_SESSION['user']->id_user;
+        $sth = $this->db->query($sql);
+        $user = $sth->fetchObject();
+
+        $sql = "update user set first_site_history = '$url', second_site_history = '$user->first_site_history', 
+third_site_history = '$user->second_site_history', fourth_site_history = '$user->third_site_history',
+         fifth_site_history = '$user->fourth_site_history' where id_user = " . $_SESSION['user']->id_user;
+        $count = $this->db->exec($sql);
+        if ($count > 0) {
+            $result = true;
+        }
+
+        return $result;
     }
 
     public function index()
     {
         $params = array_merge(self::$menu, self::$params);
+        if(isset($_SESSION['user'])) {
+            $params['name_user'] = $_SESSION['user']->name_user;
+            $this->_rememberSite($_SERVER['REQUEST_URI']);
+        } else {
+            $params['name_user'] = ' ';
+        }
 
         $this->view->render("index", $params);
     }
@@ -58,8 +99,13 @@ class Application
 
         $params['gallery'] = $gallery;
 
+        if(isset($_SESSION['user'])) {
+            $this->_rememberSite($_SERVER['REQUEST_URI']);
+        }
+
         $this->view->render("gallery", $params);
     }
+
 
     public function galleryImage()
     {
@@ -78,6 +124,9 @@ from gallery where id_gallery = $id_gallery";
             $params['image'] = [];
         }
 
+        if(isset($_SESSION['user'])) {
+            $this->_rememberSite($_SERVER['REQUEST_URI']);
+        }
         $this->view->render('gallery_image', $params);
     }
 
@@ -118,6 +167,11 @@ from gallery where id_gallery = $id_gallery";
         }
 
         $params['more'] = $addMore;
+
+        if(isset($_SESSION['user'])) {
+            $this->_rememberSite($_SERVER['REQUEST_URI']);
+        }
+
         $this->view->render('goods', $params);
     }
 
@@ -139,6 +193,9 @@ from gallery where id_gallery = $id_gallery";
             $params['product'] = [];
         }
 
+        if(isset($_SESSION['user'])) {
+            $this->_rememberSite($_SERVER['REQUEST_URI']);
+        }
         $this->view->render('goods_product', $params);
     }
 
@@ -183,5 +240,142 @@ from gallery where id_gallery = $id_gallery";
         echo $response;
     }
 
+    public function register()
+    {
+        $params = array_merge(self::$menu, self::$params);
+        $params['js'] = ' ';
+
+        if (isset($_SESSION["user"]) || $this->_checkAuthWithCookie()) {
+            header('Location: /');
+            exit();
+        }
+
+        $answer = " ";
+
+        if (isset($_POST["sign_up"])) {
+            $answer = $this->_addUser();
+        } else if (isset($_POST["sign_in"])) {
+            $answer = $this->_signInUser();
+        }
+
+        $params['answer'] = $answer;
+        $this->view->render("register", $params);
+    }
+
+    private function _checkAuthWithCookie()
+    {
+        $result = false;
+
+        if (isset($_COOKIE['id_user']) && isset($_COOKIE['cookie_hash'])) {
+            $sql = "select * from user where id_user = '" . (string)htmlspecialchars(strip_tags($_COOKIE['id_user'])) . "'";
+            $sth = $this->db->query($sql);
+            $user = $sth->fetchObject();
+
+            if (($user->password_user !== $_COOKIE['cookie_hash']) || ($user->id_user !== $_COOKIE['id_user'])) {
+                setcookie("id_user", "", time() - 3600 * 24 * 30 * 12, "/");
+                setcookie("cookie_hash", "", time() - 3600 * 24 * 30 * 12, "/");
+            } else {
+                $_SESSION["user"] = $user;
+                header("Location: /");
+            }
+
+        }
+
+        return $result;
+    }
+
+    private function _addUser()
+    {
+        $result = false;
+        $answer = " ";
+
+        $login = (string)htmlspecialchars(strip_tags($_POST["login"]));
+        $name = (string)htmlspecialchars(strip_tags($_POST["name"]));
+        $password = (string)htmlspecialchars(strip_tags($_POST["password"]));
+
+        $sql = "select * from user where login_user = '$login'";
+        $sth = $this->db->query($sql);
+        $user = $sth->fetchObject();
+
+        if (empty($user)) {
+            $password_hash = password_hash($password, PASSWORD_DEFAULT);
+            $sql = "insert into user (login_user, name_user, password_user) values ('$login', '$name', '$password_hash')";
+            $count = $this->db->exec($sql);
+            if ($count > 0) {
+                $result = true;
+            }
+        }
+
+        if ($result) {
+            $answer = "Пользователь успешно добавлен!";
+        } else {
+            $answer = "Пользователь с таким логином уже существует!";
+        }
+
+        return $answer;
+    }
+
+    private function _signInUser()
+    {
+        $answer = " ";
+
+        $login = (string)htmlspecialchars(strip_tags($_POST["login"]));
+        $password = (string)htmlspecialchars(strip_tags($_POST["password"]));
+
+        $sql = "select * from user where login_user = '$login'";
+        $sth = $this->db->query($sql);
+        $user = $sth->fetchObject();
+
+        if (isset($user) && password_verify($password, $user->password_user)) {
+
+            if (isset($_POST['rememberme']) && $_POST['rememberme'] == 'on') {
+                setcookie("id_user", $user->id_user, time() + 86400);
+                setcookie("cookie_hash", $user->password_user, time() + 86400);
+            }
+
+            $_SESSION['user'] = $user;
+            header("Location: /");
+            exit;
+        } else {
+            $answer = "Не удалось войти!";
+        }
+
+        return $answer;
+    }
+
+    public function logout()
+    {
+        unset($_SESSION["user"]);
+        session_destroy();
+        header("Location: /");
+        exit;
+    }
+
+    public function account()
+    {
+        if (!isset($_SESSION['user'])) {
+            header("Location: /");
+            exit;
+        }
+
+        $sql = "select first_site_history, second_site_history, third_site_history, fourth_site_history,
+ fifth_site_history from user where id_user = " . $_SESSION['user']->id_user;
+        $sth = $this->db->query($sql);
+        $user = $sth->fetchObject();
+
+        $params = array_merge(self::$menu, self::$params);
+        $params['js'] = ' ';
+        $params['name_user'] = $_SESSION['user']->name_user;
+        $params['site_history'] = [
+            $user->first_site_history,
+            $user->second_site_history,
+            $user->third_site_history,
+            $user->fourth_site_history,
+            $user->fifth_site_history,
+        ];
+
+        //$this->_rememberSite($_SERVER['REQUEST_URI']);
+        $this->view->render('account', $params);
+    }
 
 }
