@@ -5,18 +5,18 @@ window.addEventListener('load', () => {
     const buttonMore = document.querySelector("button.menu__link");
     product_items.forEach(product_item => {
         product_item.addEventListener('click', () => {
-            document.location.href = "/goods/product/?id_goods=" + product_item.dataset.id;
+            document.location.href = "/?path=goods/goods_product&id_goods=" + product_item.dataset.id;
         })
     })
 
     if (buttonMore !== null) {
 
         const addMoreGoods = event => {
-            let lastIdGoods = products.lastChild.dataset.id;
+            let lastIdGoods = products.lastElementChild.dataset.id;
             const params = "lastIdGoods=" + lastIdGoods;
 
             let request = new XMLHttpRequest();
-            const url = '/goods/more/';
+            const url = '/?path=goods/more_goods';
             request.open('post', url);
             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
@@ -42,6 +42,14 @@ window.addEventListener('load', () => {
                         } else {
                             answer.innerText = "Товары успешно добавлены!";
                         }
+
+                        const product_items = products.querySelectorAll(".product__item");
+                        product_items.forEach(product_item => {
+                            product_item.addEventListener('click', () => {
+                                document.location.href = "/?path=goods/goods_product&id_goods=" + product_item.dataset.id;
+                            })
+                        })
+
                     } else {
                         answer.innerText = "Что-то пошло не так!";
                     }

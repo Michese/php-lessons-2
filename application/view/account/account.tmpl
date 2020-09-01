@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+{% include 'templates/head.tmpl' %}
+<body>
+{% include 'templates/header.tmpl' %}
+
+<main>
+    <h2>Добро пожаловать&nbsp;{{ name_user }}!</h2>
+    <h3>Вы недавно смотрели</h3>
+    <ol class="site__history">
+        {% for site in site_history %}
+        <li><a href="{{ site }}">{{ site }}</a></li>
+        {% endfor %}
+    </ol>
+</main>
+
+{% include 'templates/footer.tmpl' %}
+</body>
+</html>
