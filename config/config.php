@@ -14,6 +14,10 @@ return [
         [
             'src' => '/?path=goods/index',
             'title' => 'Товары'
+        ],
+        [
+            'src' => '/?path=account/register',
+            'title' => 'Войти'
         ]
     ],
     "db" => [

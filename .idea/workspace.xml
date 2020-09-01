@@ -7,7 +7,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <executable path="composer" />
@@ -88,6 +88,7 @@
       <workItem from="1598814848203" duration="1840000" />
       <workItem from="1598852048861" duration="17680000" />
       <workItem from="1598878260573" duration="15635000" />
+      <workItem from="1598940137957" duration="7761000" />
     </task>
     <servers />
   </component>
@@ -119,10 +120,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="739" y="306" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1598852118213" />
-    <state x="794" y="443" key="NewPhpFileDialog" timestamp="1598884133089">
+    <state x="794" y="443" key="NewPhpFileDialog" timestamp="1598940516288">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="794" y="443" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1598884133089" />
+    <state x="794" y="443" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1598940516288" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1598859209049">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

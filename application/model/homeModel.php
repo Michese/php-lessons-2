@@ -11,9 +11,9 @@ class HomeModel extends Model{
         $params["year"] = $this->config->get("year");
         $params["menu"] = $this->config->get("menu");
 
-        $params["name_user"] = " ";
+        $params["name_user"] = $this->session->get("user")->login_user;
         if(!empty($this->session->get("user"))) {
-            $params["name_user"] = $this->session->get("user")["name_user"];
+            $params["name_user"] = $this->session->get("user")->name_user;
         }
 
         return $params;
