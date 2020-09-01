@@ -1,0 +1,5 @@
+[2020-08-31 18:07:17] common.ERROR: Unable to find template "gallery/image.tmpl" (looked into: W:\domains\mvc\application\view). [] []
+[2020-08-31 18:07:17] common.ERROR: Unable to find template "gallery/image.tmpl" (looked into: W:\domains\mvc\application\view). [] []
+[2020-08-31 18:24:30] common.ERROR: class \application\controller\ProductController not found! [] []
+[2020-08-31 18:24:50] common.ERROR: class \application\controller\ProductController not found! [] []
+[2020-08-31 18:25:02] common.ERROR: Unable to find template "goods/index.tmpl" (looked into: W:\domains\mvc\application\view). [] []

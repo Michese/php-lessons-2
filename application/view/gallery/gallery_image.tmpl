@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+
+{% include 'templates/head.tmpl' %}
+
+<body>
+
+{% include 'templates/header.tmpl' %}
+
+<main>
+    <img src="{{ image.src_gallery }}">
+    <p>Название: {{ image.title_gallery }} </p>
+</main>
+
+{% include 'templates/footer.tmpl' %}
+
+</body>
+</html>

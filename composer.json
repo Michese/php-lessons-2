@@ -1,5 +1,17 @@
 {
-    "require": {
-        "twig/twig": "1.*"
-    }
+  "require": {
+    "twig/twig": "^2.0",
+    "monolog/monolog": "1.23.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7"
+  },
+  "autoload": {
+    "classmap": [
+      "application/service",
+      "application/controller",
+      "application/model",
+      "tests"
+    ]
+  }
 }

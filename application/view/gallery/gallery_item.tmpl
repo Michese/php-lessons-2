@@ -1,0 +1,10 @@
+{% for image in gallery %}
+
+<div class="product__item" id="{{ image.id_gallery }}">
+    <div class="product_image_div">
+        <img src="{{ image.src_gallery }}" class="product_image">
+    </div>
+    <p class="product_content">Название: {{ image.title_gallery }}</p>
+</div>
+
+{% endfor %}
